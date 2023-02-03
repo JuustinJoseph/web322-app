@@ -4,8 +4,7 @@
  *  (including 3rd party web sites) or distributed to other students.
  *
  *  Name:Justin Joseph Student ID: 127690212 Date: 03/02/2023
- *  Online (Cyclic) Link: ________________________________________________________
- *
+ *  Online (Cyclic) Link: https://zany-pink-octopus-yoke.cyclic.app/about
  ********************************************************************************/
 
 var express = require("express");
@@ -73,5 +72,5 @@ blogService
     app.listen(HTTP_PORT, onHttpStart());
   })
   .catch(() => {
-    console.log("promises unfulfilled");
+    console.log("promises not working.");
   });
