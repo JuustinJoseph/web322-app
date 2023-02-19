@@ -1,6 +1,7 @@
 var posts = [];
 var categories = [];
 const file = require("fs"); //to use file system module
+const { resolve } = require("path");
 
 exports.initialize = () => {
   return new Promise((resolve, reject) => {
@@ -49,6 +50,54 @@ exports.getCategories = () => {
       reject("no results returned");
     } else {
       resolve(categories);
+    }
+  });
+};
+
+exports.addPost = function (postData) {
+  return new Promise((resolve, reject) => {
+    if (postData.published) {
+      postData.published == true;
+    } else postData == false;
+
+    postData.id = posts.length + 1;
+    posts.push(postData);
+    resolve();
+  });
+};
+
+exports.getPostsByCategory = (category) => {
+  return new Promise((resolve, reject) => {
+    if (posts.length === 0) {
+      reject("No results returned");
+    } else {
+      resolve(posts.filter((post) => post.category == category));
+    }
+  });
+};
+
+exports.getPostsByMinDate = (minDateStr) => {
+  return new Promise((resolve, reject) => {
+    if (posts.length != 0) {
+      resolve(
+        posts.filter((post) => {
+          return new Date(post.postDate) >= new Date(minDateStr);
+        })
+      );
+    } else {
+      reject("No results returned");
+    }
+  });
+};
+
+exports.getPostById = function (id) {
+  return new Promise((resolve, reject) => {
+    let foundPost = posts.find((post) => post.id == id);
+
+    if (foundPost) {
+      resolve(foundPost);
+    } else {
+      reject("No results returned");
     }
   });
 };
