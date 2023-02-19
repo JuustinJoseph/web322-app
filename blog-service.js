@@ -1,3 +1,12 @@
+/*********************************************************************************
+ *  WEB322 – Assignment 03
+ *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source
+ *  (including 3rd party web sites) or distributed to other students.
+ *
+ *  Name:Justin Joseph Student ID: 127690212 Date: 18/02/2023
+ *  Online (Cyclic) Link: https://zany-pink-octopus-yoke.cyclic.app/about
+ ********************************************************************************/
+
 var posts = [];
 var categories = [];
 const file = require("fs"); //to use file system module
