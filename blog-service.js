@@ -33,9 +33,21 @@ exports.initialize = () => {
   });
 };
 
-exports.getAllPublishedPosts = () => {
+exports.getPublishedPosts = () => {
   return new Promise((resolve, reject) => {
     var published = posts.filter((posts) => posts.published == true);
+    if (published.length == 0) {
+      reject("no results returned");
+    }
+    resolve(published);
+  });
+};
+
+exports.getPublishedPostsByCategory = function (category) {
+  return new Promise((resolve, reject) => {
+    var published = posts.filter(
+      (posts) => posts.published == true && posts.category == category
+    );
     if (published.length == 0) {
       reject("no results returned");
     }
@@ -68,7 +80,10 @@ exports.addPost = function (postData) {
     if (postData.published) {
       postData.published == true;
     } else postData == false;
-
+    let cur = new Date();
+    postData.postDate = `${cur.getFullYear()}-${
+      cur.getMonth() + 1
+    }-${cur.getDate()}`;
     postData.id = posts.length + 1;
     posts.push(postData);
     resolve();
