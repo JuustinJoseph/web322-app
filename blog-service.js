@@ -88,21 +88,6 @@ exports.addPost = function (postData) {
   });
 };
 
-// exports.addPost = function (postData) {
-//   return new Promise((resolve, reject) => {
-//     if (postData.published) {
-//       postData.published == true;
-//     } else postData == false;
-//     let cur = new Date();
-//     postData.postDate = `${cur.getFullYear()}-${
-//       cur.getMonth() + 1
-//     }-${cur.getDate()}`;
-//     postData.id = posts.length + 1;
-//     posts.push(postData);
-//     resolve();
-//   });
-// };
-
 exports.getPostsByCategory = (category) => {
   return new Promise((resolve, reject) => {
     if (posts.length === 0) {
