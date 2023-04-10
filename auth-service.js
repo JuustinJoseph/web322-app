@@ -1,11 +1,3 @@
-/*********************************************************************************
- *  WEB322 – Assignment 06
- *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source
- *  (including 3rd party web sites) or distributed to other students.
- *
- *  Name:Justin Joseph Student ID: 127690212 Date: 09/04/2023
- *  Online (Cyclic) Link: https://zany-pink-octopus-yoke.cyclic.app/
- ********************************************************************************/
 bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
@@ -25,17 +17,14 @@ const userSchema = new Schema({
   ],
 });
 
-let User;
-
 module.exports.initialize = function () {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     let db = mongoose.createConnection(
       "mongodb+srv://admin:123justin@senecaweb.8c0oslq.mongodb.net/?retryWrites=true&w=majority",
       { useNewUrlParser: true, useUnifiedTopology: true }
     );
-
     db.on("error", (err) => {
-      reject(err); // reject the promise with the provided error
+      reject(err);
     });
     db.once("open", () => {
       User = db.model("users", userSchema);
@@ -92,12 +81,10 @@ module.exports.checkUser = function (userData) {
                 reject(`Incorrect Password for user: ${userData.userName}`);
               }
             });
-
           users[0].loginHistory.push({
             dateTime: new Date().toString(),
             userAgent: userData.userAgent,
           });
-
           User.updateOne(
             { userName: users[0].userName },
             { $set: { loginHistory: users[0].loginHistory } },
