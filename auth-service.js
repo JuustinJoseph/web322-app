@@ -1,3 +1,11 @@
+/*********************************************************************************
+ *  WEB322 – Assignment 06
+ *  I declare that this assignment is my own work in accordance with Seneca  Academic Policy.  No part *  of this assignment has been copied manually or electronically from any other source
+ *  (including 3rd party web sites) or distributed to other students.
+ *
+ *  Name:Justin Joseph Student ID: 127690212 Date: 09/04/2023
+ *  Online (Cyclic) Link: https://zany-pink-octopus-yoke.cyclic.app
+ ********************************************************************************/
 bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
@@ -19,25 +27,24 @@ const userSchema = new Schema({
 
 let User;
 
-// ========== Ensure that we use a connection local to our module) and initialize our "User" object ==========
-function initialize() {
-  return new Promise((resolve, reject) => {
+module.exports.initialize = function () {
+  return new Promise(function (resolve, reject) {
     let db = mongoose.createConnection(
-      "mongodb+srv://dhruvchawlaa:admin@cluster0.kbgi3dd.mongodb.net/?retryWrites=true&w=majority",
+      "mongodb+srv://admin:123justin@senecaweb.8c0oslq.mongodb.net/?retryWrites=true&w=majority",
       { useNewUrlParser: true, useUnifiedTopology: true }
     );
+
     db.on("error", (err) => {
-      reject(err);
+      reject(err); // reject the promise with the provided error
     });
     db.once("open", () => {
       User = db.model("users", userSchema);
       resolve();
     });
   });
-}
+};
 
-// ========== Perform data validation ==========
-function registerUser(userData) {
+module.exports.registerUser = function (userData) {
   return new Promise((resolve, reject) => {
     if (userData.password !== userData.password2) {
       reject("Passwords do not match");
@@ -66,10 +73,9 @@ function registerUser(userData) {
         });
     }
   });
-}
+};
 
-// ========== Find the user in the database using userName ==========
-function checkUser(userData) {
+module.exports.checkUser = function (userData) {
   return new Promise((resolve, reject) => {
     User.find({ userName: userData.userName })
       .exec()
@@ -108,10 +114,4 @@ function checkUser(userData) {
         reject(`Unable to find user: ${userData.userName}`);
       });
   });
-}
-
-module.exports = {
-  initialize,
-  registerUser,
-  checkUser,
 };
