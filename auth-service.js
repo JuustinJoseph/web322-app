@@ -92,10 +92,12 @@ module.exports.checkUser = function (userData) {
                 reject(`Incorrect Password for user: ${userData.userName}`);
               }
             });
+
           users[0].loginHistory.push({
             dateTime: new Date().toString(),
             userAgent: userData.userAgent,
           });
+
           User.updateOne(
             { userName: users[0].userName },
             { $set: { loginHistory: users[0].loginHistory } },
